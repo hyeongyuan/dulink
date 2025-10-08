@@ -1,9 +1,11 @@
 'use client';
 
-import { type ChangeEvent, useState } from "react";
+import type { ChangeEvent } from "react";
+import { useLinkActions, useLinkValue } from "@/stores/linkStore";
 
 export function InputLink() {
-  const [value, setValue] = useState('');
+  const value = useLinkValue();
+  const { setValue } = useLinkActions();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
