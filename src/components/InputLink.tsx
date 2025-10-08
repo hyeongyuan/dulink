@@ -10,6 +10,8 @@ export function InputLink() {
   const keyWordsRef = useRef<HTMLDivElement>(null);
   const [scrollValue, setScrollValue] = useState(0); 
 
+  const [isShowToast, setIsShowToast] = useState(false);
+
   useEffect(() => {
     if (keyWordsRef.current) {
       keyWordsRef.current.scrollLeft = scrollValue;
@@ -24,8 +26,14 @@ export function InputLink() {
     setScrollValue(event.currentTarget.scrollLeft);
   };
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(value);
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setIsShowToast(true);
+      setTimeout(() => setIsShowToast(false), 2000);
+    } catch {
+      // ignore
+    }
   };
 
   const wordBlocks = generateWordBlocks(value);
@@ -59,6 +67,13 @@ export function InputLink() {
       <button type="button" className="btn" onClick={handleCopy}>
         복사
       </button>
+      <div className="toast toast-end">
+        {isShowToast && (
+          <div className="alert alert-success">
+            <span>링크가 복사되었습니다.</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
