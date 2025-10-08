@@ -1,9 +1,5 @@
 import { create } from 'zustand';
-
-interface Query {
-  name: string;
-  value: string;
-}
+import { extractQueries, type Query } from '@/utils/url';
 
 interface LinkStore {
   value: string;
@@ -16,7 +12,7 @@ interface LinkStore {
 
 const useLinkStore = create<LinkStore>((set, get) => ({
   value: '',
-  queries: [],
+  queries: [{ name: '', value: '' }],
   actions: {
     setValue: (newValue: string) => {
       set({
@@ -56,12 +52,3 @@ const useLinkStore = create<LinkStore>((set, get) => ({
 export const useLinkValue = () => useLinkStore((state) => state.value);
 export const useLinkQueries = () => useLinkStore((state) => state.queries);
 export const useLinkActions = () => useLinkStore((state) => state.actions);
-
-function extractQueries(link: string): Query[] {
-  try {
-    const url = new URL(link);
-    return Array.from(url.searchParams.entries()).map(([name, value]) => ({ name, value }));
-  } catch {
-    return [];
-  }
-}

@@ -24,13 +24,13 @@ export function QueryTable() {
         {queries.map(({ name, value }) => (
           <tr key={name}>
             <td>
-              <input type="text" className="input input-ghost" value={name} readOnly />
+              <input type="text" className="input input-sm input-ghost" value={name} readOnly />
             </td>
             <td>
-              <input type="text" className="input input-ghost" name={name} value={value} onChange={handleChange} />
+              <input type="text" className="input input-sm input-ghost" name={name} value={value} onChange={handleChange} />
             </td>
             <td>
-              <input type="text" className="input input-ghost" />
+              <input type="text" className="input input-sm input-ghost" />
             </td>
           </tr>
         ))}
