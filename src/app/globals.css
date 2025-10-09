@@ -85,6 +85,14 @@ textarea:focus {
   position: absolute;
   left: -2px;
   top: 0;
-  background-color: rgb(225 29 72);
   z-index: -1;
+  overflow: hidden;
+}
+
+.Input__keyWord.key::before {
+  background-color: oklch(76% .177 163.223);
+}
+
+.Input__keyWord.value::before {
+  background-color: oklch(82% .189 84.429);
 }

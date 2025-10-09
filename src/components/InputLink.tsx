@@ -46,12 +46,14 @@ export function InputLink() {
         </span>
         <div className="relative flex items-stretch flex-1">
           <div ref={keyWordsRef} className="Input__keyWordsWrapper">
-            {wordBlocks.map(({ text, highlight }, index) => (
+            {wordBlocks.map(({ text, highlight, type }, index) => (
               // biome-ignore lint/suspicious/noArrayIndexKey: key is acceptable here
               <Fragment key={`text-block-${index}`}>
-                {highlight ? (
-                  <span className="Input__keyWord">{text}</span>
-                ) : text}
+                {
+                  highlight
+                    ? <span className={`Input__keyWord ${type}`}>{text}</span>
+                    : text
+                }
               </Fragment>
             ))}
           </div>
@@ -83,6 +85,7 @@ export function InputLink() {
 interface WordBlock {
   text: string;
   highlight: boolean;
+  type?: 'key' | 'value';
 }
 
 function generateWordBlocks(link: string) {
@@ -95,9 +98,9 @@ function generateWordBlocks(link: string) {
       const [key, value] = keyValue.split('=');
       return [
         index !== 0 && { text: '&', highlight: false },
-        { text: key, highlight: true },
+        { text: key, highlight: true, type: 'key' },
         value !== undefined && { text: '=', highlight: false },
-        value !== undefined && { text: value || '', highlight: true },
+        value !== undefined && { text: value || '', highlight: true, type: 'value' },
       ].filter(Boolean);
   }),
   ].filter(Boolean) as WordBlock[];
