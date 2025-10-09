@@ -5,7 +5,7 @@ import { useLinkActions, useLinkQueries } from "@/stores/linkStore";
 
 export function QueryTable() {
   const queries = useLinkQueries();
-  const { setQueryValue } = useLinkActions();
+  const { addEmptyQuery, setQueryValue } = useLinkActions();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQueryValue(event.target.name, event.target.value);
@@ -18,8 +18,7 @@ export function QueryTable() {
         <table className="table table-xs">
           <thead>
             <tr>
-              <th>쿼리 파라미터 목록</th>
-              {/* <th></th> */}
+              <th colSpan={2}>쿼리 파라미터 목록</th>
             </tr>
           </thead>
           <tbody>
@@ -50,6 +49,15 @@ export function QueryTable() {
               );
             })}
           </tbody>
+          <tfoot>
+            <tr>
+              <td className="w-full" colSpan={2}>
+                <button type="button" className="btn btn-ghost btn-sm w-full justify-start" onClick={addEmptyQuery}>
+                  + 새로운 쿼리
+                </button>
+              </td>
+            </tr>
+          </tfoot>
         </table>
       </div>
     </div>

@@ -6,6 +6,7 @@ interface LinkStore {
   queries: Query[];
   actions: {
     setValue: (newValue: string) => void;
+    addEmptyQuery: () => void;
     setQueryValue: (name: string, newValue: string) => void;
   };
 }
@@ -18,6 +19,12 @@ const useLinkStore = create<LinkStore>((set, get) => ({
       set({
         value: newValue,
         queries: extractQueries(newValue),
+      });
+    },
+    addEmptyQuery: () => {
+      const { queries } = get();
+      set({
+        queries: [...queries, { name: '', value: '' }],
       });
     },
     setQueryValue: (name: string, newValue: string) => {
