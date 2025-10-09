@@ -18,7 +18,7 @@ export function QueryTable() {
         <table className="table table-xs">
           <thead>
             <tr>
-              <th colSpan={2}>쿼리 파라미터 목록</th>
+              <td colSpan={2}>쿼리 파라미터 목록</td>
             </tr>
           </thead>
           <tbody>
@@ -26,20 +26,21 @@ export function QueryTable() {
               return (
                 // biome-ignore lint/suspicious/noArrayIndexKey: key is acceptable here
                 <tr key={`${name}-${index}`}>
-                  <td>
+                  <td className="w-[40%]">
                     <input
                       type="text"
                       className="input input-sm input-ghost w-full"
+                      name={`key-${name}`}
                       value={name}
                       placeholder="Key"
                       readOnly
                     />
                   </td>
-                  <td>
+                  <td className="w-[60%]">
                     <input
                       type="text"
                       className="input input-sm input-ghost w-full"
-                      name={name}
+                      name={`value-${name}`}
                       value={value}
                       placeholder="Value"
                       onChange={handleInputChange}
