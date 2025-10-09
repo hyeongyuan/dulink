@@ -7,34 +7,51 @@ export function QueryTable() {
   const queries = useLinkQueries();
   const { setQueryValue } = useLinkActions();
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQueryValue(event.target.name, event.target.value);
   };
 
   return (
-    <table className="table">
-      <thead>
-        <tr>
-          <th>Key</th>
-          <th>Value</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        {queries.map(({ name, value }) => (
-          <tr key={name}>
-            <td>
-              <input type="text" className="input input-sm input-ghost" value={name} readOnly />
-            </td>
-            <td>
-              <input type="text" className="input input-sm input-ghost" name={name} value={value} onChange={handleChange} />
-            </td>
-            <td>
-              <input type="text" className="input input-sm input-ghost" />
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="tabs tabs-border">
+      <input type="radio" name="parameters" className="tab" defaultChecked aria-label="파라미터" />
+      <div className="tab-content pt-2">
+        <table className="table table-xs">
+          <thead>
+            <tr>
+              <th>쿼리 파라미터 목록</th>
+              {/* <th></th> */}
+            </tr>
+          </thead>
+          <tbody>
+            {queries.map(({ name, value }, index) => {
+              return (
+                // biome-ignore lint/suspicious/noArrayIndexKey: key is acceptable here
+                <tr key={`${name}-${index}`}>
+                  <td>
+                    <input
+                      type="text"
+                      className="input input-sm input-ghost w-full"
+                      value={name}
+                      placeholder="Key"
+                      readOnly
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      className="input input-sm input-ghost w-full"
+                      name={name}
+                      value={value}
+                      placeholder="Value"
+                      onChange={handleInputChange}
+                    />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
