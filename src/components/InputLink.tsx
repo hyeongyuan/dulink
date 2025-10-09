@@ -45,7 +45,7 @@ export function InputLink() {
           Link
         </span>
         <div className="relative flex items-stretch flex-1">
-          <div ref={keyWordsRef} className="Input__keyWordsWrapper">
+          <div ref={keyWordsRef} className="Input__keyWordsWrapper mr-[2px]">
             {wordBlocks.map(({ text, highlight, type }, index) => (
               // biome-ignore lint/suspicious/noArrayIndexKey: key is acceptable here
               <Fragment key={`text-block-${index}`}>
@@ -59,7 +59,7 @@ export function InputLink() {
           </div>
           <textarea
             name="link"
-            className="Input__field grow textarea-ghost"
+            className="Input__field grow textarea-ghost mr-[2px]"
             placeholder="https://xxx.onelink.me"
             value={value}
             onChange={handleChange}
