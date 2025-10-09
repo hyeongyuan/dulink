@@ -89,10 +89,15 @@ textarea:focus {
   overflow: hidden;
 }
 
-.Input__keyWord.key::before {
-  background-color: oklch(76% .177 163.223);
+.Input__keyWord.key {
+  color: oklch(76% .177 163.223);
 }
-
+.Input__keyWord.key::before {
+  background-color: color-mix(in oklab,var(--badge-color,var(--color-base-content))8%,var(--color-base-100));
+}
+.Input__keyWord.value {
+  color: oklch(82% .189 84.429);
+}
 .Input__keyWord.value::before {
-  background-color: oklch(82% .189 84.429);
+  background-color: color-mix(in oklab,var(--badge-color,var(--color-base-content))8%,var(--color-base-100));
 }

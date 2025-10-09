@@ -65,6 +65,7 @@ export function InputLink() {
             onChange={handleChange}
             onScroll={handleScroll}
             rows={1}
+            spellCheck={false}
           />
         </div>
       </label>
