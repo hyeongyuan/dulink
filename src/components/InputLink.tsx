@@ -41,7 +41,9 @@ export function InputLink() {
   return (
     <div className="flex gap-2 w-full">
       <label className="input flex flex-1">
-        Link
+        <span className="badge badge-neutral">
+          Link
+        </span>
         <div className="relative flex items-stretch flex-1">
           <div ref={keyWordsRef} className="Input__keyWordsWrapper">
             {wordBlocks.map(({ text, highlight }, index) => (
