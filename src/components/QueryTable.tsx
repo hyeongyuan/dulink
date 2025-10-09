@@ -40,7 +40,7 @@ export function QueryTable() {
                     <input
                       type="text"
                       className="input input-sm input-ghost w-full"
-                      name={`value-${name}`}
+                      name={name}
                       value={value}
                       placeholder="Value"
                       onChange={handleInputChange}
