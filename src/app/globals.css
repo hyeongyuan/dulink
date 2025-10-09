@@ -56,12 +56,12 @@ textarea:focus {
   resize: none;
   position: relative;
   vertical-align: middle;
-  caret-color: white;
+  caret-color: var(--foreground);
 }
 
 .Input__keyWordsWrapper {
   background-color: transparent;
-  color: white;
+  color: var(--foreground);
   display: flex;
   align-items: center;
   overflow-x: scroll;
@@ -91,12 +91,14 @@ textarea:focus {
 
 .Input__keyWord.key {
   color: oklch(76% .177 163.223);
+  --badge-color: oklch(76% .177 163.223);
 }
 .Input__keyWord.key::before {
   background-color: color-mix(in oklab,var(--badge-color,var(--color-base-content))8%,var(--color-base-100));
 }
 .Input__keyWord.value {
   color: oklch(82% .189 84.429);
+  --badge-color: oklch(82% .189 84.429);
 }
 .Input__keyWord.value::before {
   background-color: color-mix(in oklab,var(--badge-color,var(--color-base-content))8%,var(--color-base-100));
