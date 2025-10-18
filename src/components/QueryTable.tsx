@@ -1,15 +1,16 @@
 'use client';
 
-import type { ChangeEvent } from "react";
+import { type ChangeEvent, useCallback } from "react";
+import { QueryTableRow } from "@/components/QueryTableRow";
 import { useLinkActions, useLinkQueries } from "@/stores/linkStore";
 
 export function QueryTable() {
   const queries = useLinkQueries();
   const { addEmptyQuery, setQueryValue } = useLinkActions();
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     setQueryValue(event.target.name, event.target.value);
-  };
+  }, [setQueryValue]);
 
   return (
     <div className="tabs tabs-border">
@@ -18,35 +19,14 @@ export function QueryTable() {
         <table className="table table-xs">
           <thead>
             <tr>
-              <td colSpan={2}>쿼리 파라미터 목록</td>
+              <td colSpan={3}>쿼리 파라미터 목록</td>
             </tr>
           </thead>
           <tbody>
             {queries.map(({ name, value }, index) => {
               return (
                 // biome-ignore lint/suspicious/noArrayIndexKey: key is acceptable here
-                <tr key={`${name}-${index}`}>
-                  <td className="w-[40%]">
-                    <input
-                      type="text"
-                      className="input input-sm input-ghost w-full"
-                      name={`key-${name}`}
-                      value={name}
-                      placeholder="Key"
-                      readOnly
-                    />
-                  </td>
-                  <td className="w-[60%]">
-                    <input
-                      type="text"
-                      className="input input-sm input-ghost w-full"
-                      name={name}
-                      value={value}
-                      placeholder="Value"
-                      onChange={handleInputChange}
-                    />
-                  </td>
-                </tr>
+                <QueryTableRow key={`${name}-${index}`} name={name} value={value} onInputChange={handleInputChange}  />
               );
             })}
           </tbody>
