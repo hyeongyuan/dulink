@@ -13,3 +13,19 @@ export function extractQueries(link: string): Query[] {
     return [];
   }
 }
+
+export function encodeOnlyQueries(url: string): string {
+  try {
+    const parsedUrl = new URL(url);
+    const encodedParams = new URLSearchParams();
+
+    parsedUrl.searchParams.forEach((value, key) => {
+      encodedParams.append(key, value);
+    });
+    
+    parsedUrl.search = encodedParams.toString();
+    return parsedUrl.toString();
+  } catch {
+    return url;
+  }
+}

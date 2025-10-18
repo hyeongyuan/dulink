@@ -1,7 +1,7 @@
-export const prettyPrintJson = (jsonString: string): string => {
+export const prettyPrintJson = (jsonString: string, space = 2): string => {
   try {
     const jsonObj = JSON.parse(jsonString);
-    return JSON.stringify(jsonObj, null, 2);
+    return JSON.stringify(jsonObj, null, space);
   } catch {
     return jsonString;
   }

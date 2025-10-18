@@ -2,6 +2,7 @@
 
 import { type ChangeEvent, Fragment, type UIEvent, useEffect, useRef, useState } from "react";
 import { useLinkActions, useLinkValue } from "@/stores/linkStore";
+import { encodeOnlyQueries } from "@/utils/url";
 
 export function InputLink() {
   const value = useLinkValue();
@@ -38,6 +39,10 @@ export function InputLink() {
 
   const handleScroll = (event: UIEvent<HTMLTextAreaElement>) => {
     setScrollValue(event.currentTarget.scrollLeft);
+  };
+
+  const handleBlur = () => {
+    setValue(encodeOnlyQueries(value));
   };
 
   const handleCopy = async () => {
@@ -80,6 +85,7 @@ export function InputLink() {
             value={value}
             onChange={handleChange}
             onScroll={handleScroll}
+            onBlur={handleBlur}
             rows={1}
             spellCheck={false}
           />
