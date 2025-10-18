@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { isValidJson, minifyJson, prettyPrintJson } from "@/utils/json";
 
 interface TextareaJsonProps {
@@ -8,6 +8,7 @@ interface TextareaJsonProps {
 }
 
 export function TextareaJson({ name, value, onChange }: TextareaJsonProps) {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [jsonValue, setJsonValue] = useState<string>(prettyPrintJson(value));
   const [isShowToast, setIsShowToast] = useState(false);
 
@@ -20,6 +21,16 @@ export function TextareaJson({ name, value, onChange }: TextareaJsonProps) {
 
     setJsonValue(newValue);
   };
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: 값 변경에 따른 높이 조절
+  useEffect(() => {
+    const textareaElement = textareaRef.current;
+    if (!textareaElement) {
+      return;
+    }
+    textareaElement.style.height = 'auto';
+    textareaElement.style.height = `${textareaElement.scrollHeight}px`;
+  }, [jsonValue, textareaRef.current]);
 
   const handleJsonInputKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 's' && event.metaKey) {
@@ -55,6 +66,7 @@ export function TextareaJson({ name, value, onChange }: TextareaJsonProps) {
         onChange={handleJsonInputChange}
         onKeyDown={handleJsonInputKeyDown}
         spellCheck={false}
+        ref={textareaRef}
       />
       {isValidJsonValue && (
         <button
