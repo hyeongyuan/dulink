@@ -2,7 +2,7 @@ import { DevicePhoneMobileIcon, LinkIcon } from "@heroicons/react/24/solid";
 
 export function SideMenu() {
   return (
-    <div className="border-r border-base-300">
+    <div className="border-r border-base-300 hidden sm:block">
       <ul className="menu rounded-box gap-2">
         <li>
           <a className="menu-active p-2" href="/">

@@ -20,8 +20,8 @@ export function QueryTableRow({ name, value, onInputChange }: QueryTableRowProps
   };
 
   return (
-    <tr>
-      <td className="w-[30%]">
+    <tr className="flex">
+      <td className="flex-2 max-w-xs">
         <input
           type="text"
           className="input input-sm input-ghost w-full"
@@ -31,7 +31,7 @@ export function QueryTableRow({ name, value, onInputChange }: QueryTableRowProps
           readOnly
         />
       </td>
-      <td className="w-[50%]">
+      <td className="flex-3">
         {valueType === 'text' && (
           <input
             type="text"
@@ -46,7 +46,7 @@ export function QueryTableRow({ name, value, onInputChange }: QueryTableRowProps
           <TextareaJson name={name} value={value} onChange={onInputChange} />
         )}
       </td>
-      <td className="w-[20%]">
+      <td className="flex">
         <select
           className="select select-sm"
           value={valueType}
