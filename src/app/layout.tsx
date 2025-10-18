@@ -18,6 +18,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Dulink",
   description: "A simple URL query parameter editor",
+  openGraph: {
+    title: "Dulink",
+    description: "A simple URL query parameter editor",
+    url: "https://dulink.vercel.app",
+    siteName: "Dulink",
+  }
 };
 
 export default function RootLayout({
