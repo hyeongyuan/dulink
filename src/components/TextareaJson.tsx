@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isValidJson, minifyJson, prettyPrintJson } from "@/utils/json";
 
 interface TextareaJsonProps {
@@ -10,6 +10,10 @@ interface TextareaJsonProps {
 export function TextareaJson({ name, value, onChange }: TextareaJsonProps) {
   const [jsonValue, setJsonValue] = useState<string>(prettyPrintJson(value));
   const [isShowToast, setIsShowToast] = useState(false);
+
+  useEffect(() => {
+    setJsonValue(prettyPrintJson(value));
+  }, [value]);
 
   const handleJsonInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = event.target.value;
