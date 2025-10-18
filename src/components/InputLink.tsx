@@ -112,18 +112,32 @@ interface WordBlock {
 }
 
 function generateWordBlocks(link: string) {
-  const [urlWithoutQueries, queryString] = link.split('?');
-  const keyValues = queryString?.split('&') || [];
+  const queryStartIndex = link.indexOf('?');
+  if (queryStartIndex === -1) {
+    return [{ text: link, highlight: false }];
+  }
+
+  const urlWithoutQueries = link.slice(0, queryStartIndex + 1);
+  const queryString = link.slice(queryStartIndex + 1);
+  const keyValues = queryString.split('&') || [];
   return [
     { text: urlWithoutQueries, highlight: false },
-    queryString !== undefined && { text: '?', highlight: false },
     ...keyValues.flatMap((keyValue, index) => {
-      const [key, value] = keyValue.split('=');
+      const valueStartIndex = keyValue.indexOf('=');
+      if (valueStartIndex === -1) {
+        return [
+          index !== 0 && { text: '&', highlight: false },
+          { text: keyValue, highlight: true, type: 'key' },
+        ].filter(Boolean);
+      }
+
+      const key = keyValue.slice(0, valueStartIndex);
+      const value = keyValue.slice(valueStartIndex + 1);
       return [
         index !== 0 && { text: '&', highlight: false },
         { text: key, highlight: true, type: 'key' },
-        value !== undefined && { text: '=', highlight: false },
-        value !== undefined && { text: value || '', highlight: true, type: 'value' },
+        { text: '=', highlight: false },
+        { text: value, highlight: true, type: 'value' },
       ].filter(Boolean);
   }),
   ].filter(Boolean) as WordBlock[];
