@@ -32,7 +32,7 @@ export function QueryTable() {
           </tbody>
           <tfoot>
             <tr>
-              <td className="w-full" colSpan={2}>
+              <td className="w-full" colSpan={3}>
                 <button type="button" className="btn btn-ghost btn-sm w-full justify-start" onClick={addEmptyQuery}>
                   + 새로운 쿼리
                 </button>
