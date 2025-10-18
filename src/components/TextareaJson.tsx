@@ -17,6 +17,14 @@ export function TextareaJson({ name, value, onChange }: TextareaJsonProps) {
     setJsonValue(newValue);
   };
 
+  const handleJsonInputKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 's' && event.metaKey) {
+      event.preventDefault();
+
+      handleSaveClick();
+    }
+  };
+
   const handleSaveClick = () => {
     if (isValidJson(jsonValue) && onChange) {
       const syntheticEvent = {
@@ -41,6 +49,7 @@ export function TextareaJson({ name, value, onChange }: TextareaJsonProps) {
         name={`${name}-json`}
         value={jsonValue}
         onChange={handleJsonInputChange}
+        onKeyDown={handleJsonInputKeyDown}
         spellCheck={false}
       />
       {isValidJsonValue && (
