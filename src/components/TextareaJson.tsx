@@ -9,6 +9,7 @@ interface TextareaJsonProps {
 
 export function TextareaJson({ name, value, onChange }: TextareaJsonProps) {
   const [jsonValue, setJsonValue] = useState<string>(prettyPrintJson(value));
+  const [isShowToast, setIsShowToast] = useState(false);
 
   const handleJsonInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     const newValue = event.target.value;
@@ -25,10 +26,14 @@ export function TextareaJson({ name, value, onChange }: TextareaJsonProps) {
         },
       } as React.ChangeEvent<HTMLInputElement>;
       onChange(syntheticEvent);
+
+      setIsShowToast(true);
+      setTimeout(() => setIsShowToast(false), 2000);
     }
   };
 
   const isValidJsonValue = isValidJson(jsonValue);
+
   return (
     <div className="relative">
       <textarea
@@ -47,6 +52,13 @@ export function TextareaJson({ name, value, onChange }: TextareaJsonProps) {
           저장
         </button>
       )}
+      <div className="toast toast-end">
+        {isShowToast && (
+          <div className="alert alert-success">
+            <span>값이 저장되었습니다.</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
