@@ -18,6 +18,20 @@ export function InputLink() {
     }
   }, [scrollValue]);
 
+  useEffect(() => {
+    const encodedLink = encodeURIComponent(value);
+    const url = new URL(window.location.toString());
+    url.searchParams.set('link', encodedLink);
+
+    window.history.pushState(null, '', url);
+  }, [value]);
+
+  const preventPressEnter = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+    }
+  };
+
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setValue(event.target.value);
   };
@@ -61,6 +75,8 @@ export function InputLink() {
             name="link"
             className="Input__field grow textarea-ghost mr-[2px]"
             placeholder="https://xxx.onelink.me"
+
+            onKeyDown={preventPressEnter}
             value={value}
             onChange={handleChange}
             onScroll={handleScroll}
