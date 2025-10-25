@@ -6,11 +6,13 @@ import { useLinkActions, useLinkQueries } from "@/stores/linkStore";
 
 export function QueryTable() {
   const queries = useLinkQueries();
-  const { addEmptyQuery, setQueryValue } = useLinkActions();
+  const { addEmptyQuery, updateQuery } = useLinkActions();
 
   const handleInputChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-    setQueryValue(event.target.name, event.target.value);
-  }, [setQueryValue]);
+    const [id, name] = event.target.name.split('_');
+
+    updateQuery(id, { [name]: event.target.value });
+  }, [updateQuery]);
 
   return (
     <div className="tabs tabs-border">
@@ -23,10 +25,15 @@ export function QueryTable() {
             </tr>
           </thead>
           <tbody>
-            {queries.map(({ name, value }, index) => {
+            {queries.map(({ id, name, value }) => {
               return (
-                // biome-ignore lint/suspicious/noArrayIndexKey: key is acceptable here
-                <QueryTableRow key={`${name}-${index}`} name={name} value={value} onInputChange={handleInputChange}  />
+                <QueryTableRow
+                  key={id}
+                  id={id}
+                  name={name}
+                  value={value}
+                  onInputChange={handleInputChange}
+                />
               );
             })}
           </tbody>

@@ -2,8 +2,7 @@
 
 import { createContext, type ReactNode, useContext, useRef } from 'react'
 import { useStore } from 'zustand';
-import { createLinkStore, type LinkStore } from '@/stores/linkStore';
-import { extractQueries } from '@/utils/url';
+import { createLinkStore, type LinkState, type LinkStore } from '@/stores/linkStore';
 
 export type LinkStoreApi = ReturnType<typeof createLinkStore>;
 
@@ -13,20 +12,16 @@ export const LinkStoreContext = createContext<LinkStoreApi | undefined>(
 
 export interface LinkStoreProviderProps {
   children: ReactNode;
-  initialLink?: string;
+  initialState: LinkState;
 }
 
 export const LinkStoreProvider = ({
   children,
-  initialLink = '',
+  initialState,
 }: LinkStoreProviderProps) => {
   const storeRef = useRef<LinkStoreApi | null>(null);
   if (storeRef.current === null) {
-    const decodedLink = decodeURIComponent(initialLink);
-    storeRef.current = createLinkStore({
-      value: decodedLink,
-      queries: extractQueries(decodedLink),
-    });
+    storeRef.current = createLinkStore(initialState);
   }
 
   return (

@@ -7,12 +7,13 @@ import { isValidJson } from "@/utils/json";
 type ValueType = 'text' | 'json';
 
 interface QueryTableRowProps {
+  id: string;
   name: string;
   value: string;
   onInputChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function QueryTableRow({ name, value, onInputChange }: QueryTableRowProps) {
+export function QueryTableRow({ id, name, value, onInputChange }: QueryTableRowProps) {
   const [valueType, setValueType] = useState<ValueType>('text');
 
   const handleValueTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -25,10 +26,10 @@ export function QueryTableRow({ name, value, onInputChange }: QueryTableRowProps
         <input
           type="text"
           className="input input-sm input-ghost w-full"
-          name={`key-${name}`}
+          name={`${id}_name`}
           value={name}
           placeholder="Key"
-          readOnly
+          onChange={onInputChange}
         />
       </td>
       <td className="flex-3">
@@ -36,7 +37,7 @@ export function QueryTableRow({ name, value, onInputChange }: QueryTableRowProps
           <input
             type="text"
             className="input input-sm input-ghost w-full"
-            name={name}
+            name={`${id}_value`}
             value={value}
             placeholder="Value"
             onChange={onInputChange}

@@ -1,6 +1,7 @@
-
+import { v4 as uuid } from 'uuid';
 
 export interface Query {
+  id: string;
   name: string;
   value: string;
 }
@@ -8,7 +9,8 @@ export interface Query {
 export function extractQueries(link: string): Query[] {
   try {
     const url = new URL(link);
-    return Array.from(url.searchParams.entries()).map(([name, value]) => ({ name, value }));
+    return Array.from(url.searchParams.entries())
+      .map(([name, value]) => ({ id: uuid(), name, value }));
   } catch {
     return [];
   }
