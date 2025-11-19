@@ -44,7 +44,7 @@ export function QueryTableRow({ id, name, value, onInputChange }: QueryTableRowP
           />
         )}
         {valueType === 'json' && (
-          <TextareaJson name={name} value={value} onChange={onInputChange} />
+          <TextareaJson name={`${id}_value`} value={value} onChange={onInputChange} />
         )}
       </td>
       <td className="flex">
