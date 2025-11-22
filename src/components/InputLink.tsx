@@ -1,6 +1,7 @@
 'use client';
 
 import { type ChangeEvent, Fragment, type UIEvent, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { useLinkActions, useLinkValue } from "@/stores/linkStore";
 import { encodeOnlyQueries } from "@/utils/url";
 
@@ -10,8 +11,6 @@ export function InputLink() {
 
   const keyWordsRef = useRef<HTMLDivElement>(null);
   const [scrollValue, setScrollValue] = useState(0); 
-
-  const [isShowToast, setIsShowToast] = useState(false);
 
   useEffect(() => {
     if (keyWordsRef.current) {
@@ -48,8 +47,8 @@ export function InputLink() {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(value);
-      setIsShowToast(true);
-      setTimeout(() => setIsShowToast(false), 2000);
+
+      toast.success('링크가 복사되었습니다.');
     } catch {
       // ignore
     }
@@ -94,13 +93,6 @@ export function InputLink() {
       <button type="button" className="btn" onClick={handleCopy}>
         복사
       </button>
-      <div className="toast toast-end">
-        {isShowToast && (
-          <div className="alert alert-success">
-            <span>링크가 복사되었습니다.</span>
-          </div>
-        )}
-      </div>
     </div>
   );
 }

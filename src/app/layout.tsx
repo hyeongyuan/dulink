@@ -4,6 +4,7 @@ import { Navigation } from "@/components/Navigation";
 import { SideMenu } from "@/components/SideMenu";
 
 import "./globals.css";
+import { Toaster } from "@/components/Toaster";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,7 @@ export default function RootLayout({
             {children}
           </div>
         </div>
+        <Toaster />
       </body>
     </html>
   );

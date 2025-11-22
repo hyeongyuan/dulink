@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { isValidJson, minifyJson, prettyPrintJson } from "@/utils/json";
 
 interface TextareaJsonProps {
@@ -10,7 +11,6 @@ interface TextareaJsonProps {
 export function TextareaJson({ name, value, onChange }: TextareaJsonProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [jsonValue, setJsonValue] = useState<string>(prettyPrintJson(value));
-  const [isShowToast, setIsShowToast] = useState(false);
 
   useEffect(() => {
     setJsonValue(prettyPrintJson(value));
@@ -50,8 +50,7 @@ export function TextareaJson({ name, value, onChange }: TextareaJsonProps) {
       } as React.ChangeEvent<HTMLInputElement>;
       onChange(syntheticEvent);
 
-      setIsShowToast(true);
-      setTimeout(() => setIsShowToast(false), 2000);
+      toast.success('값이 저장되었습니다.');
     }
   };
 
@@ -77,13 +76,6 @@ export function TextareaJson({ name, value, onChange }: TextareaJsonProps) {
           저장
         </button>
       )}
-      <div className="toast toast-end">
-        {isShowToast && (
-          <div className="alert alert-success">
-            <span>값이 저장되었습니다.</span>
-          </div>
-        )}
-      </div>
     </div>
   );
 }
