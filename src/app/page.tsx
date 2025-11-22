@@ -1,7 +1,23 @@
+import type { Metadata } from "next";
 import { InputLink } from "@/components/InputLink";
 import { QueryTable } from "@/components/QueryTable";
 import { LinkStoreProvider } from "@/providers/linkStoreProvider";
 import { extractQueries } from "@/utils/url";
+
+const SELF_ORIGIN = 'https://dulink.vercel.app';
+
+type Props = {
+  searchParams: Promise<{ link?: string }>
+}
+
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const { link } = await searchParams;
+  return {
+    openGraph: {
+      images: [`${SELF_ORIGIN}/api/og?link=${link}`],
+    },
+  }
+}
 
 interface HomeProps {
   searchParams: Promise<{ link?: string }>;
