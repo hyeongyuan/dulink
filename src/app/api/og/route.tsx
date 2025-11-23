@@ -35,13 +35,13 @@ export async function GET(request: Request) {
   }
   
   const url = new URL(decodeURIComponent(link));
-  const hostname = url.hostname;
+  const domain = `${url.protocol}//${url.host}`;
   const query: Record<string, string | number> = {};
   url.searchParams.forEach((value, key) => {
     query[key] = value;
   });
 
-  return new ImageResponse(<OgImage hostname={hostname} query={query} />, {
+  return new ImageResponse(<OgImage domain={domain} query={query} />, {
     width: 1200,
     height: 630,
     fonts,
@@ -51,11 +51,11 @@ export async function GET(request: Request) {
 }
 
 interface OgImageProps {
-  hostname: string;
+  domain: string;
   query: Record<string, string | number>;
 }
 
-function OgImage({ hostname, query }: OgImageProps) {
+function OgImage({ domain, query }: OgImageProps) {
   return (
     <div
       tw="text-white w-full h-full flex justify-center flex-col px-32"
@@ -64,7 +64,7 @@ function OgImage({ hostname, query }: OgImageProps) {
       }}
     >
       <h1 tw="text-8xl font-bold">
-        {hostname}
+        {domain}
       </h1>
       <ul tw="block flex flex-col items-start gap-4">
         {Object.entries(query).map(([key, value], index) => (
