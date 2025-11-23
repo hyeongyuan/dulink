@@ -18,7 +18,7 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const opImagePathname = isDefaultImage ? '/opengraph-image.jpg' : `/api/og?link=${link}`;
   return {
     openGraph: {
-      images: [`${SELF_ORIGIN}/${opImagePathname}`],
+      images: [`${SELF_ORIGIN}${opImagePathname}`],
     },
   }
 }
