@@ -24,6 +24,8 @@ const fonts = [
   }
 ];
 
+export const revalidate = 60 * 60 * 24; // 24 hours
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const link = searchParams.get('link') || '';
