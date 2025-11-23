@@ -63,18 +63,18 @@ function OgImage({ hostname, query }: OgImageProps) {
         backgroundImage: 'linear-gradient(135deg, #3a4ca8 0%, #5b6ffb 100%)',
       }}
     >
-      <h1 tw="text-7xl font-bold">
+      <h1 tw="text-8xl font-bold">
         {hostname}
       </h1>
-      <ul tw="block flex flex-col items-start gap-2">
+      <ul tw="block flex flex-col items-start gap-4">
         {Object.entries(query).map(([key, value], index) => (
-          <li key={key} tw="text-3xl font-medium">
+          <li key={key} tw="text-4xl font-medium">
             <span>{index === 0 ? '?' : '&'} {key}=</span>{value}
           </li>
         ))}
       </ul>
       <div tw="absolute bottom-4 right-20">
-        <p tw="text-4xl font-bold">Dulink</p>
+        <p tw="text-5xl font-bold">Dulink</p>
       </div>
     </div>
   );
