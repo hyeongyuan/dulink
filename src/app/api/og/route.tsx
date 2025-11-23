@@ -63,7 +63,7 @@ function OgImage({ domain, query }: OgImageProps) {
         backgroundImage: 'linear-gradient(135deg, #3a4ca8 0%, #5b6ffb 100%)',
       }}
     >
-      <h1 tw="text-8xl font-bold">
+      <h1 tw="text-8xl font-bold tracking-tight">
         {domain}
       </h1>
       <ul tw="block flex flex-col items-start gap-4">
