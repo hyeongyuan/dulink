@@ -13,9 +13,9 @@ type Props = {
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const { link } = await searchParams;
 
-  const isDynamicOgImage = !link || link.length === 0;
+  const isDefaultImage = !link || link.length === 0;
 
-  const opImagePathname = isDynamicOgImage ? `/api/og?link=${link}` : '/opengraph-image.jpg';
+  const opImagePathname = isDefaultImage ? '/opengraph-image.jpg' : `/api/og?link=${link}`;
   return {
     openGraph: {
       images: [`${SELF_ORIGIN}/${opImagePathname}`],
