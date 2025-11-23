@@ -1,28 +1,25 @@
-import { ImageResponse } from "@takumi-rs/image-response";
+import { ImageResponse } from "@takumi-rs/image-response/wasm";
+import module from "@takumi-rs/wasm/next";
 
 const fonts = [
   {
     name: "Pretendard",
     data: await fetch("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2").then((res) => res.arrayBuffer()),
-    style: "normal",
     weight: 400
   },
   {
     name: "Pretendard",
     data: await fetch("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2").then((res) => res.arrayBuffer()),
-    style: "normal",
     weight: 500
   },
   {
     name: "Pretendard",
     data: await fetch("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2").then((res) => res.arrayBuffer()),
-    style: "normal",
     weight: 600
   },
   {
     name: "Pretendard",
     data: await fetch("https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2").then((res) => res.arrayBuffer()),
-    style: "normal",
     weight: 700
   }
 ];
@@ -46,6 +43,7 @@ export async function GET(request: Request) {
     width: 1200,
     height: 630,
     fonts,
+    module,
     format: "png",
   });
 }
